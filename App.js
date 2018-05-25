@@ -20,7 +20,8 @@ export default class App extends Component<Props>{
     this._getData = this._getData.bind(this);
     this.state = {
       air: {},
-      synthese: ""
+      synthese: "",
+      nmbr: 0
     };
   }
   _getData(){
@@ -38,7 +39,8 @@ export default class App extends Component<Props>{
       }
       this.setState({
         air: response.data,
-        synthese: resp
+        synthese: resp,
+        nmbr: new Date().getTime()
       })
 
 
@@ -46,6 +48,7 @@ export default class App extends Component<Props>{
   }
   componentDidMount(){
     this._getData()
+    // setInterval(this._getData,60000)
   }
   render() {
     let d = this.state.air
@@ -84,7 +87,7 @@ export default class App extends Component<Props>{
           </Left>
         </CardItem>
         <CardItem cardBody>
-          <Image source={{uri: 'http://airquality.bauduin.org/image.jpg'}} style={{height: 200, width: null,flex: 1}}/>
+          <Image source={{uri: 'http://airquality.bauduin.org/image.jpg?state='+this.state.nmbr+'&number='+new Date().getTime()}} style={{height: 200, width: null,flex: 1}}/>
         </CardItem>
       </Card>
       </Content>
